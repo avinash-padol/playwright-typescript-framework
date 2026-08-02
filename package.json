@@ -1,21 +1,21 @@
 {
   "name": "playwright-typescript-framework",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {},
+  "description": "Playwright automation framework built from scratch using TypeScript",
+  "author": "Avinash Padol",
+  "license": "MIT",
+  "type": "commonjs",
+  "scripts": {
+    "test": "playwright test",
+    "headed": "playwright test --headed",
+    "debug": "playwright test --debug",
+    "ui": "playwright test --ui",
+    "report": "playwright show-report"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/avinash-padol/playwright-typescript-framework.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/avinash-padol/playwright-typescript-framework/issues"
-  },
-  "homepage": "https://github.com/avinash-padol/playwright-typescript-framework#readme",
   "devDependencies": {
     "@playwright/test": "^1.62.1",
     "@types/node": "^26.1.2"
