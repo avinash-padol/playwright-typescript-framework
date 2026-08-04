@@ -17,8 +17,6 @@
     "forceConsistentCasingInFileNames": true,
 
     "types": ["node", "@playwright/test"],
-
-    "baseUrl": "."
   },
 
   "include": [

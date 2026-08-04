@@ -5,7 +5,7 @@ dotenv.config({
 });
 
 export const config = Object.freeze({
-    baseUrl: process.env.BASE_URL!,
-    username: process.env.USERNAME!,
-    password: process.env.PASSWORD!
+    baseUrl: process.env.APP_BASE_URL!,
+    username: process.env.APP_USERNAME!,
+    password: process.env.APP_PASSWORD!
 });
