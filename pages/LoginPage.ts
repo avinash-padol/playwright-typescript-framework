@@ -9,8 +9,8 @@ export class LoginPage extends BasePage{
 
     constructor (page: Page){
         super(page);
-        this.usernameTextBox = this.page.getByLabel("Username");
-        this.passwordTextbox = this.page.getByLabel("Password");
+        this.usernameTextBox = this.page.getByRole('textbox', { name: 'Username'});
+        this.passwordTextbox = this.page.getByRole('textbox', { name: 'Password'});
         this.loginButton = this.page.getByRole("button", { name: "Login" });
     }
 
