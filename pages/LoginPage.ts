@@ -14,6 +14,10 @@ export class LoginPage extends BasePage{
         this.loginButton = this.page.getByRole("button", { name: "Login" });
     }
 
+    async navigate(): Promise<void> {
+        await this.page.goto('/web/index.php/auth/login');
+    }
+    
     async login (username: string, password: string): Promise<void>{
         await this.fill(this.usernameTextBox, username);
         await this.fill(this.passwordTextbox, password);
