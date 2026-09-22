@@ -4,14 +4,13 @@ import { EmployeeApi } from "../../api/EmployeeApi";
 test("Get user", async ({ request }) => {
     const employeeApi = new EmployeeApi(request);
 
-    const response = await employeeApi.getUser(1);
+    const result = await employeeApi.getUser(1);
     
-    console.log(response);
-
-    expect(response.id).toBe(1);
-    expect(response.name).toBe('Leanne Graham');
-    expect(response.username).toBe('Bret');
-    expect(response.email).toBe('Sincere@april.biz');
+    expect(result.response.status()).toBe(200);
+    expect(result.body.id).toBe(1);
+    expect(result.body.name).toBe('Leanne Graham');
+    expect(result.body.username).toBe('Bret');
+    expect(result.body.email).toBe('Sincere@april.biz');
 });
 
 test("Create user", async ({ request }) => {
