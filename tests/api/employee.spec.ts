@@ -1,12 +1,13 @@
 import { test, expect} from "@playwright/test";
 import { EmployeeApi } from "../../api/EmployeeApi";
+import { ApiAssertions } from "../../api/ApiAssertions"
 
 test("Get user", async ({ request }) => {
     const employeeApi = new EmployeeApi(request);
 
     const result = await employeeApi.getUser(1);
     
-    expect(result.response.status()).toBe(200);
+    ApiAssertions.expectStatus(result.response, 200)
     expect(result.body.id).toBe(1);
     expect(result.body.name).toBe('Leanne Graham');
     expect(result.body.username).toBe('Bret');
@@ -23,7 +24,7 @@ test("Create user", async ({ request }) => {
         }
     );
 
-    expect(result.response.status()).toBe(201);
+    ApiAssertions.expectStatus(result.response, 201)
 
     const body = result.body;
 
@@ -44,7 +45,7 @@ test("Update user using PUT", async ({ request }) => {
             email: 'updated@example.com'
         }
     );
-    expect(result.response.status()).toBe(200)
+    ApiAssertions.expectStatus(result.response, 200)
     const body = result.body
     console.log(body)
     expect(body.name).toBe('Sachin_updated')
@@ -59,7 +60,7 @@ test("Update user using PATCH", async ({ request }) => {
             email: 'newemail@exmple.com'
         }
     );
-    expect(result.response.status()).toBe(200)
+    ApiAssertions.expectStatus(result.response, 200)
 
     const body = await result.body
     console.log(body)
@@ -69,5 +70,5 @@ test("Update user using PATCH", async ({ request }) => {
 test("Delete user", async ({ request }) => {
     const employeeApi = new EmployeeApi(request);
     const respone = await employeeApi.deleteUser(11)
-    expect(respone.status()).toBe(200)
+    ApiAssertions.expectStatus(respone, 200)
 });
