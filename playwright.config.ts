@@ -49,11 +49,20 @@ export default defineConfig({
     },
 
     {
-      name: 'chromium-auth',
+      name: 'chromium-admin',
       testMatch: '**/authenticated/**/*.spec.ts',
       dependencies: ['setup'],
       use: { ...devices['Desktop Chrome'],
-        storageState: 'playwright/.auth/user.json',
+        storageState: 'playwright/.auth/Admin.json',
+       },
+    },
+
+    {
+      name: 'chromium-testuser',
+      testMatch: '**/authenticated/**/*.spec.ts',
+      dependencies: ['setup'],
+      use: { ...devices['Desktop Chrome'],
+        storageState: 'playwright/.auth/TestUser.json',
        },
     },
 
