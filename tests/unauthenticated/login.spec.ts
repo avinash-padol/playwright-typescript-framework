@@ -2,6 +2,7 @@ import { test, expect } from '../../fixtures/baseFixture';
 import { config } from '../../config/config';
 import { LoginPage } from '../../pages/LoginPage';
 import { DashboardPage } from '../../pages/DashboardPage';
+import { loginUsers } from '../../test-data/loginData';
 /*
  - this {page} is coming from - import { test, expect } from '@playwright/test';
  - but after we rmove this import it is coming from - import { test, expect } from '../fixtures/baseFixture';
@@ -29,8 +30,11 @@ import { DashboardPage } from '../../pages/DashboardPage';
     - Both page objects use the same Playwright { page } fixture.
 */
 
-test('Login verify dashboard with fixtures for ${user.username}', async ({ loginPage, dashboardPage }) => {
-    await loginPage.navigate();
-    await loginPage.login(config.username, config.password);
-    await dashboardPage.verifyDashboardDisplayed();
-});
+for (const user of loginUsers) {
+    //Use template literals with backticks(``)
+    test(`Login verify dashboard with fixtures for ${user.username}`, async ({ loginPage, dashboardPage }) => {
+        await loginPage.navigate();
+        await loginPage.login(user.username, user.password);
+        await dashboardPage.verifyDashboardDisplayed();
+    });
+}
