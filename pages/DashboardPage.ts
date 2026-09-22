@@ -4,10 +4,12 @@ import { BasePage } from "./BasePage";
 export class DashboardPage extends BasePage{
 
     private readonly dashboardHeading: Locator;
+    private readonly timeAtWorkHeading: Locator;
 
     constructor(page:Page){
         super(page);
         this.dashboardHeading = this.page.getByRole("heading", { name : "Dashboard"});
+        this.timeAtWorkHeading = this.page.getByText("Time at Work");
     }     
     
     async navigate(): Promise<void> {
@@ -16,5 +18,9 @@ export class DashboardPage extends BasePage{
     
     async verifyDashboardDisplayed(): Promise<void>{
         await expect(this.dashboardHeading).toBeVisible();
+    }
+
+    async verifyTimeAtWorkDisplayed(): Promise<void>{
+        await expect(this.timeAtWorkHeading).toBeVisible();
     }
 }
