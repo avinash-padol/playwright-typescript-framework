@@ -57,13 +57,21 @@ export default defineConfig({
        },
     },
 
+    // {
+    //   name: 'chromium-testuser',
+    //   testMatch: '**/authenticated/**/*.spec.ts',
+    //   dependencies: ['setup'],
+    //   use: { ...devices['Desktop Chrome'],
+    //     storageState: 'playwright/.auth/TestUser.json',
+    //    },
+    // },
+
     {
-      name: 'chromium-testuser',
-      testMatch: '**/authenticated/**/*.spec.ts',
-      dependencies: ['setup'],
-      use: { ...devices['Desktop Chrome'],
-        storageState: 'playwright/.auth/TestUser.json',
-       },
+        name: 'api',
+        testMatch: '**/api/**/*.spec.ts',
+        use: {
+            ...devices['Desktop Chrome'],
+        },
     },
 
     // {
