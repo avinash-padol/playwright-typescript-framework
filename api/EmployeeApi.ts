@@ -1,12 +1,15 @@
 import { APIRequestContext } from "@playwright/test"
-import { CreateUserRequest, UpdateuserRequest, PatchUserRequest } from "../test-data/userData";
+import { CreateUserRequest, UpdateUserRequest, PatchUserRequest, UserResponse } from "../test-data/userData";
 
 export class EmployeeApi {
     constructor(private request: APIRequestContext) {}
-    async getUser(userId : number){
-        return await this.request.get(
+
+    async getUser(userId : number): Promise<UserResponse>{
+        const respone = await this.request.get(
         `https://jsonplaceholder.typicode.com/users/${userId}`
         );
+        const body = respone.json();
+        return body;
     }
 
     async createUser(userData: CreateUserRequest){
@@ -18,7 +21,7 @@ export class EmployeeApi {
         );
     }
 
-    async updateUser(userId : number, userData : UpdateuserRequest){
+    async updateUser(userId : number, userData : UpdateUserRequest){
         return await this.request.put(
             `https://jsonplaceholder.typicode.com/users/${userId}`,
             {

@@ -11,7 +11,7 @@ export interface CreateUserRequest{
     email: string;
 }
 
-export interface UpdateuserRequest{
+export interface UpdateUserRequest{
     name: string;
     username: string;
     email: string;

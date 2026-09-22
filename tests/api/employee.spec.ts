@@ -5,17 +5,13 @@ test("Get user", async ({ request }) => {
     const employeeApi = new EmployeeApi(request);
 
     const response = await employeeApi.getUser(1);
-
-    expect(response.status()).toBe(200);
-
-    const body = await response.json();
     
-    console.log(body);
+    console.log(response);
 
-    expect(body.id).toBe(1);
-    expect(body.name).toBe('Leanne Graham');
-    expect(body.username).toBe('Bret');
-    expect(body.email).toBe('Sincere@april.biz');
+    expect(response.id).toBe(1);
+    expect(response.name).toBe('Leanne Graham');
+    expect(response.username).toBe('Bret');
+    expect(response.email).toBe('Sincere@april.biz');
 });
 
 test("Create user", async ({ request }) => {
