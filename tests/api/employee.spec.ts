@@ -15,7 +15,7 @@ test("Get user", async ({ request }) => {
 
 test("Create user", async ({ request }) => {
     const employeeApi = new EmployeeApi(request);
-    const response = await employeeApi.createUser(
+    const result = await employeeApi.createUser(
         {
             name: 'Sachin',
             username: 'sachin123',
@@ -23,29 +23,29 @@ test("Create user", async ({ request }) => {
         }
     );
 
-    expect(response.status()).toBe(201);
+    expect(result.response.status()).toBe(201);
 
-    const body = await response.json();
+    const body = result.body;
 
     console.log(body);
 
-    expect(body.name).toBe('Sachin')
-    expect(body.username).toBe('sachin123')
-    expect(body.email).toBe('sachin@example.com')
+    expect(result.body.name).toBe('Sachin')
+    expect(result.body.username).toBe('sachin123')
+    expect(result.body.email).toBe('sachin@example.com')
 
 });
 
 test("Update user using PUT", async ({ request }) => {
     const employeeApi = new EmployeeApi(request);
-    const response = await employeeApi.updateUser(1,
+    const result = await employeeApi.updateUser(1,
         {
             name: 'Sachin_updated',
             username: 'sachinupdated',
             email: 'updated@example.com'
         }
     );
-    expect(response.status()).toBe(200)
-    const body = await response.json()
+    expect(result.response.status()).toBe(200)
+    const body = result.body
     console.log(body)
     expect(body.name).toBe('Sachin_updated')
     expect(body.username).toBe('sachinupdated')
@@ -54,14 +54,14 @@ test("Update user using PUT", async ({ request }) => {
 
 test("Update user using PATCH", async ({ request }) => {
     const employeeApi = new EmployeeApi(request);
-    const response = await employeeApi.patchUser(11,
+    const result = await employeeApi.patchUser(11,
         {
             email: 'newemail@exmple.com'
         }
     );
-    expect(response.status()).toBe(200)
+    expect(result.response.status()).toBe(200)
 
-    const body = await response.json()
+    const body = await result.body
     console.log(body)
     expect(body.email).toBe('newemail@exmple.com')
 });
