@@ -6,6 +6,8 @@ dotenv.config({
 
 export const config = Object.freeze({
     baseUrl: process.env.APP_BASE_URL!,
-    username: process.env.APP_USERNAME!,
-    password: process.env.APP_PASSWORD!
+    adminUsername: process.env.ADMIN_USERNAME!,
+    adminPassword: process.env.ADMIN_PASSWORD!,
+    testUserUsername: process.env.TESTUSER_USERNAME!,
+    testUserPassword: process.env.TESTUSER_PASSWORD!
 });
