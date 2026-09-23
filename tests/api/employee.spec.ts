@@ -1,7 +1,7 @@
 import { test, expect} from "@playwright/test";
 import { EmployeeApi } from "../../api/EmployeeApi";
 import { ApiAssertions } from "../../api/ApiAssertions"
-import { createUserData, updateUserData, pathUserData } from "../../test-data/userData"
+import { createUsersData, updateUserData, pathUserData } from "../../test-data/userData"
 
 test("Get user", async ({ request }) => {
     const employeeApi = new EmployeeApi(request);
@@ -15,19 +15,14 @@ test("Get user", async ({ request }) => {
     expect(result.body.email).toBe('Sincere@april.biz');
 });
 
-test("Create user", async ({ request }) => {
+for (const user of createUsersData)
+test(`Create user - ${user.username}`, async ({ request }) => {
     const employeeApi = new EmployeeApi(request);
-    const result = await employeeApi.createUser(createUserData);
-
+    const result = await employeeApi.createUser(user);
     ApiAssertions.expectStatus(result.response, 201)
-
-    const body = result.body;
-
-    console.log(body);
-
-    expect(result.body.name).toBe('Sachin')
-    expect(result.body.username).toBe('sachin123')
-    expect(result.body.email).toBe('sachin@example.com')
+    expect(result.body.name).toBe(user.name)
+    expect(result.body.username).toBe(user.username)
+    expect(result.body.email).toBe(user.email)
 
 });
 

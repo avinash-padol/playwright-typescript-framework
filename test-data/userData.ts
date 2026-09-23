@@ -30,11 +30,23 @@ export interface UserResponse{
     email: string;
 }
 
-export const createUserData: CreateUserRequest = {
-    name: "Sachin",
-    username: "sachin123",
-    email: "sachin@example.com"
-}
+export const createUsersData: CreateUserRequest[] = [
+    {
+        name: "Sachin",
+        username: "sachin123",
+        email: "sachin@example.com"
+    },
+    {
+        name: 'Rahul',
+        username: 'rahul123',
+        email: 'rahul@example.com'
+    },
+    {
+        name: 'Amit',
+        username: 'amit123',
+        email: 'amit@example.com'
+    }
+]
 
 export const updateUserData: UpdateUserRequest = {
     name: "Sachin_updated",
