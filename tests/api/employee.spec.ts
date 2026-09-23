@@ -30,21 +30,16 @@ test("Update user using PUT", async ({ request }) => {
     const employeeApi = new EmployeeApi(request);
     const result = await employeeApi.updateUser(1, updateUserData);
     ApiAssertions.expectStatus(result.response, 200)
-    const body = result.body
-    console.log(body)
-    expect(body.name).toBe('Sachin_updated')
-    expect(body.username).toBe('sachinupdated')
-    expect(body.email).toBe('updated@example.com')
+    expect(result.body.name).toBe(updateUserData.name)
+    expect(result.body.username).toBe(updateUserData.username)
+    expect(result.body.email).toBe(updateUserData.email)
 });
 
 test("Update user using PATCH", async ({ request }) => {
     const employeeApi = new EmployeeApi(request);
     const result = await employeeApi.patchUser(11, pathUserData);
     ApiAssertions.expectStatus(result.response, 200)
-
-    const body = await result.body
-    console.log(body)
-    expect(body.email).toBe('newemail@exmple.com')
+    expect(result.body.email).toBe(pathUserData.email)
 });
 
 test("Delete user", async ({ request }) => {
