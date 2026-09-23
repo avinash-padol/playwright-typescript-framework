@@ -1,6 +1,7 @@
 import { test, expect} from "@playwright/test";
 import { EmployeeApi } from "../../api/EmployeeApi";
 import { ApiAssertions } from "../../api/ApiAssertions"
+import { createUserData, updateUserData, pathUserData } from "../../test-data/userData"
 
 test("Get user", async ({ request }) => {
     const employeeApi = new EmployeeApi(request);
@@ -16,13 +17,7 @@ test("Get user", async ({ request }) => {
 
 test("Create user", async ({ request }) => {
     const employeeApi = new EmployeeApi(request);
-    const result = await employeeApi.createUser(
-        {
-            name: 'Sachin',
-            username: 'sachin123',
-            email: 'sachin@example.com'
-        }
-    );
+    const result = await employeeApi.createUser(createUserData);
 
     ApiAssertions.expectStatus(result.response, 201)
 
@@ -38,13 +33,7 @@ test("Create user", async ({ request }) => {
 
 test("Update user using PUT", async ({ request }) => {
     const employeeApi = new EmployeeApi(request);
-    const result = await employeeApi.updateUser(1,
-        {
-            name: 'Sachin_updated',
-            username: 'sachinupdated',
-            email: 'updated@example.com'
-        }
-    );
+    const result = await employeeApi.updateUser(1, updateUserData);
     ApiAssertions.expectStatus(result.response, 200)
     const body = result.body
     console.log(body)
@@ -55,11 +44,7 @@ test("Update user using PUT", async ({ request }) => {
 
 test("Update user using PATCH", async ({ request }) => {
     const employeeApi = new EmployeeApi(request);
-    const result = await employeeApi.patchUser(11,
-        {
-            email: 'newemail@exmple.com'
-        }
-    );
+    const result = await employeeApi.patchUser(11, pathUserData);
     ApiAssertions.expectStatus(result.response, 200)
 
     const body = await result.body
