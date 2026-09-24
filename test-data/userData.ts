@@ -54,6 +54,6 @@ export const updateUserData: UpdateUserRequest = {
     email: "updated@example.com"
 }
 
-export const pathUserData: PatchUserRequest = {
+export const patchUserData: PatchUserRequest = {
     email: "newemail@exmple.com"
 }

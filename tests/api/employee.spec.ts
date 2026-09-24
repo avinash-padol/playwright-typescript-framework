@@ -1,9 +1,9 @@
-import { request, test, expect} from "@playwright/test";
 import { EmployeeApi } from "../../api/EmployeeApi";
 import { ApiAssertions } from "../../api/ApiAssertions"
-import { createUsersData, updateUserData, pathUserData } from "../../test-data/userData"
-import { AuthApi } from "../../api/AuthApi"
-import { ApiContext } from "../../api//ApiContext"
+import { createUsersData, updateUserData, patchUserData } from "../../test-data/userData"
+import { AuthApi } from "../../api/AuthApi";
+import { ApiContext } from "../../api/ApiContext";
+import { test, expect } from "../../fixtures/apiFixture";
 
 test("Get user", async ({ request }) => {
     const employeeApi = new EmployeeApi(request);
@@ -37,9 +37,9 @@ test("Update user using PUT", async ({ request }) => {
 
 test("Update user using PATCH", async ({ request }) => {
     const employeeApi = new EmployeeApi(request);
-    const result = await employeeApi.patchUser(11, pathUserData);
+    const result = await employeeApi.patchUser(11, patchUserData);
     ApiAssertions.expectStatus(result.response, 200)
-    expect(result.body.email).toBe(pathUserData.email)
+    expect(result.body.email).toBe(patchUserData.email)
 });
 
 test("Delete user", async ({ request }) => {
@@ -89,4 +89,11 @@ test("Create authenticated API context new", async ({request})=>{
     const response = await apiContext.get("https://jsonplaceholder.typicode.com/users/1")
     expect(response.status()).toBe(200)
     await apiContext.dispose()
+});
+
+test("Authenticated GET user", async ({ authenticatedRequest }) =>{
+    const employeeApi = new EmployeeApi(authenticatedRequest);
+    const result = await employeeApi.getUser(1);
+    expect(result.response.status()).toBe(200);
+    expect(result.body.id).toBe(1);
 })
