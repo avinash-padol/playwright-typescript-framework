@@ -3,6 +3,7 @@ import { APIRequestContext } from "@playwright/test";
 import { AuthApi } from "../api/AuthApi";
 import { ApiContext } from "../api/ApiContext";
 import { EmployeeApi } from "../api/EmployeeApi";
+import { config } from "../config/config";
 
 type ApiFixtures = {
     authenticatedRequest: APIRequestContext;
@@ -13,8 +14,8 @@ export const test = base.extend<ApiFixtures>({
     authenticatedRequest: async({ request }, use) =>{
         const authApi = new AuthApi(request);
         const loginResult = await authApi.login({
-            username: "testuser",
-            password: "password123"
+            username: config.apiPassword,
+            password: config.apiPassword
         });
         const apiContext = await ApiContext.createAuthenticated(loginResult.accessToken);
         await use(apiContext);
