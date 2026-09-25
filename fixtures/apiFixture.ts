@@ -2,10 +2,12 @@ import { test as base } from "@playwright/test";
 import { APIRequestContext } from "@playwright/test";
 import { AuthApi } from "../api/AuthApi";
 import { ApiContext } from "../api/ApiContext";
+import { EmployeeApi } from "../api/EmployeeApi";
 
 type ApiFixtures = {
-    authenticatedRequest: APIRequestContext
-}
+    authenticatedRequest: APIRequestContext;
+    employeeApi : EmployeeApi;
+};
 
 export const test = base.extend<ApiFixtures>({
     authenticatedRequest: async({ request }, use) =>{
@@ -17,6 +19,12 @@ export const test = base.extend<ApiFixtures>({
         const apiContext = await ApiContext.createAuthenticated(loginResult.accessToken);
         await use(apiContext);
         await apiContext.dispose();
+    },
+
+    employeeApi: async({ authenticatedRequest }, use) =>{
+        const employeeApi = new EmployeeApi(authenticatedRequest);
+
+        await use(employeeApi);
     }
 });
 

@@ -5,10 +5,9 @@ import { AuthApi } from "../../api/AuthApi";
 import { ApiContext } from "../../api/ApiContext";
 import { test, expect } from "../../fixtures/apiFixture";
 
-test("Get user", async ({ request }) => {
-    const employeeApi = new EmployeeApi(request);
+test("Get user", async ({ employeeApi }) => {
     const result = await employeeApi.getUser(1);
-    ApiAssertions.expectStatus(result.response, 200)
+    ApiAssertions.expectStatus(result.response, 200);
     expect(result.body.id).toBe(1);
     expect(result.body.name).toBe('Leanne Graham');
     expect(result.body.username).toBe('Bret');
@@ -16,8 +15,7 @@ test("Get user", async ({ request }) => {
 });
 
 for (const user of createUsersData)
-test(`Create user - ${user.username}`, async ({ request }) => {
-    const employeeApi = new EmployeeApi(request);
+test(`Create user - ${user.username}`, async ({ employeeApi }) => {
     const result = await employeeApi.createUser(user);
     ApiAssertions.expectStatus(result.response, 201)
     expect(result.body.name).toBe(user.name)
@@ -26,8 +24,7 @@ test(`Create user - ${user.username}`, async ({ request }) => {
 
 });
 
-test("Update user using PUT", async ({ request }) => {
-    const employeeApi = new EmployeeApi(request);
+test("Update user using PUT", async ({ employeeApi }) => {
     const result = await employeeApi.updateUser(1, updateUserData);
     ApiAssertions.expectStatus(result.response, 200)
     expect(result.body.name).toBe(updateUserData.name)
@@ -35,15 +32,13 @@ test("Update user using PUT", async ({ request }) => {
     expect(result.body.email).toBe(updateUserData.email)
 });
 
-test("Update user using PATCH", async ({ request }) => {
-    const employeeApi = new EmployeeApi(request);
+test("Update user using PATCH", async ({ employeeApi }) => {
     const result = await employeeApi.patchUser(11, patchUserData);
     ApiAssertions.expectStatus(result.response, 200)
     expect(result.body.email).toBe(patchUserData.email)
 });
 
-test("Delete user", async ({ request }) => {
-    const employeeApi = new EmployeeApi(request);
+test("Delete user", async ({ employeeApi }) => {
     const respone = await employeeApi.deleteUser(11)
     ApiAssertions.expectStatus(respone, 200)
 });
@@ -91,9 +86,14 @@ test("Create authenticated API context new", async ({request})=>{
     await apiContext.dispose()
 });
 
-test("Authenticated GET user", async ({ authenticatedRequest }) =>{
-    const employeeApi = new EmployeeApi(authenticatedRequest);
+test("Authenticated GET user", async ({ employeeApi }) =>{
     const result = await employeeApi.getUser(1);
-    expect(result.response.status()).toBe(200);
+    ApiAssertions.expectStatus(result.response, 200);
     expect(result.body.id).toBe(1);
 })
+
+test("Authenticted GET another user", async ( {employeeApi})=>{
+    const result = await employeeApi.getUser(2);
+    ApiAssertions.expectStatus(result.response, 200);
+    expect(result.body.id).toBe(2)
+});
