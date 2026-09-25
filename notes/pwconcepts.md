@@ -95,3 +95,49 @@ Project: setup
 
 Project: chromium
     → runs authenticated application tests
+
+I have now covered quite a lot under API section:
+
+APIRequestContext
+GET/POST/PUT/PATCH/DELETE
+TypeScript request/response models
+Generic ApiResponse<T>
+Reusable API status assertions
+Data-driven API tests
+Bearer authentication
+AuthApi
+ApiContext
+Custom API fixtures
+Fixture dependency injection
+Fixture lifecycle
+Reusable EmployeeApi fixture
+
+Playwright builds the dependency graph: A fixture is initialized when a test requests it directly, or when another requested fixture depends on it.
+Playwright only builds the dependency chain required by that test
+"I need employeeApi."
+
+      ↓
+
+"employeeApi needs authenticatedRequest."
+
+      ↓
+
+"I need to create authenticatedRequest."
+
+      ↓
+
+"authenticatedRequest needs request."
+
+      ↓
+
+"request is a built-in fixture."
+
+      ↓
+
+Create request
+      ↓
+Create authenticatedRequest
+      ↓
+Create employeeApi
+      ↓
+Run test

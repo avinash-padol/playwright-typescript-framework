@@ -48,3 +48,5 @@ Generics
 Generic constraints
 any / unknown
 void / never
+
+await use(apiContext); => “provide this value to whoever depends on this fixture.”
