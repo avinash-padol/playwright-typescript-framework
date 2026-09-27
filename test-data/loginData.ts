@@ -9,9 +9,5 @@ export const loginUsers: LoginData[] = [
     {
         username: config.adminUsername,
         password: config.adminPassword
-    },
-    {
-        username: config.testUserUsername,
-        password: config.testUserPassword
     }
 ];
