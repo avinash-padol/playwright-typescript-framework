@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        APP_BASE_URL = 'https://opensource-demo.orangehrmlive.com',
+        APP_BASE_URL = 'https://opensource-demo.orangehrmlive.com'
         BROWSER = "${params.BROWSER}"
     }
     stages {
