@@ -38,7 +38,81 @@ pipeline {
         }
 
         stage('Run Tests') {
-            steps {
+    steps {
+        script {
+
+            if (params.BROWSER == 'all') {
+
+                parallel(
+                    'Chromium': {
+                        withCredentials([
+                            usernamePassword(
+                                credentialsId: 'playwright-admin',
+                                usernameVariable: 'ADMIN_USERNAME',
+                                passwordVariable: 'ADMIN_PASSWORD'
+                            ),
+                            usernamePassword(
+                                credentialsId: 'playwright-testuser',
+                                usernameVariable: 'TESTUSER_USERNAME1',
+                                passwordVariable: 'TESTUSER_PASSWORD1'
+                            ),
+                            usernamePassword(
+                                credentialsId: 'playwright-apiuser',
+                                usernameVariable: 'API_USERNAME',
+                                passwordVariable: 'API_PASSWORD'
+                            )
+                        ]) {
+                            bat 'npx playwright test --project=chromium'
+                        }
+                    },
+
+                    'Firefox': {
+                        withCredentials([
+                            usernamePassword(
+                                credentialsId: 'playwright-admin',
+                                usernameVariable: 'ADMIN_USERNAME',
+                                passwordVariable: 'ADMIN_PASSWORD'
+                            ),
+                            usernamePassword(
+                                credentialsId: 'playwright-testuser',
+                                usernameVariable: 'TESTUSER_USERNAME1',
+                                passwordVariable: 'TESTUSER_PASSWORD1'
+                            ),
+                            usernamePassword(
+                                credentialsId: 'playwright-apiuser',
+                                usernameVariable: 'API_USERNAME',
+                                passwordVariable: 'API_PASSWORD'
+                            )
+                        ]) {
+                            bat 'npx playwright test --project=firefox'
+                        }
+                    },
+
+                    'WebKit': {
+                        withCredentials([
+                            usernamePassword(
+                                credentialsId: 'playwright-admin',
+                                usernameVariable: 'ADMIN_USERNAME',
+                                passwordVariable: 'ADMIN_PASSWORD'
+                            ),
+                            usernamePassword(
+                                credentialsId: 'playwright-testuser',
+                                usernameVariable: 'TESTUSER_USERNAME1',
+                                passwordVariable: 'TESTUSER_PASSWORD1'
+                            ),
+                            usernamePassword(
+                                credentialsId: 'playwright-apiuser',
+                                usernameVariable: 'API_USERNAME',
+                                passwordVariable: 'API_PASSWORD'
+                            )
+                        ]) {
+                            bat 'npx playwright test --project=webkit'
+                        }
+                    }
+                )
+
+            } else {
+
                 withCredentials([
                     usernamePassword(
                         credentialsId: 'playwright-admin',
@@ -56,16 +130,12 @@ pipeline {
                         passwordVariable: 'API_PASSWORD'
                     )
                 ]) {
-                bat '''
-                    if "%BROWSER%"=="all" (
-                        npx playwright test --project=chromium --project=firefox --project=webkit
-                    ) else (
-                        npx playwright test --project=%BROWSER%
-                    )
-                '''
+                    bat 'npx playwright test --project=%BROWSER%'
                 }
             }
         }
+    }
+}
         
         stage('Check Playwright Report') {
             steps {
