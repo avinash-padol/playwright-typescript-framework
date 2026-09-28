@@ -156,21 +156,15 @@ pipeline {
         }
     }
     post {
-        always {
-            junit 'test-results/results.xml'
-            
-            publishHTML([
-                allowMissing: true,
-                alwaysLinkToLastBuild: true,
-                keepAll: true,
-                reportDir: 'playwright-report',
-                reportFiles: 'index.html',
-                reportName: 'Playwright HTML Report'
-            ])
-            archiveArtifacts artifacts: 'playwright-report/**/*',
+    always {
+
+        junit 'test-results/**/*.xml'
+
+        archiveArtifacts artifacts: 'playwright-report/**/*',
                          allowEmptyArchive: true
-            archiveArtifacts artifacts: 'test-results/**/*',
+
+        archiveArtifacts artifacts: 'test-results/**/*',
                          allowEmptyArchive: true
-         }
     }
+}
 }
