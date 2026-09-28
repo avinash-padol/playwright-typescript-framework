@@ -62,7 +62,11 @@ pipeline {
                                 passwordVariable: 'API_PASSWORD'
                             )
                         ]) {
-                            bat 'npx playwright test --project=chromium'
+                            bat '''
+                                set PW_HTML_REPORT=playwright-report\\chromium
+                                set PW_JUNIT_REPORT=test-results\\chromium\\results.xml
+                                npx playwright test --project=chromium
+                            '''
                         }
                     },
 
@@ -84,7 +88,11 @@ pipeline {
                                 passwordVariable: 'API_PASSWORD'
                             )
                         ]) {
-                            bat 'npx playwright test --project=firefox'
+                            bat '''
+                                set PW_HTML_REPORT=playwright-report\\firefox
+                                set PW_JUNIT_REPORT=test-results\\firefox\\results.xml
+                                npx playwright test --project=firefox
+                            '''
                         }
                     },
 
@@ -106,7 +114,11 @@ pipeline {
                                 passwordVariable: 'API_PASSWORD'
                             )
                         ]) {
-                            bat 'npx playwright test --project=webkit'
+                            bat '''
+                                set PW_HTML_REPORT=playwright-report\\webkit
+                                set PW_JUNIT_REPORT=test-results\\webkit\\results.xml
+                                npx playwright test --project=webkit
+                            '''
                         }
                     }
                 )
