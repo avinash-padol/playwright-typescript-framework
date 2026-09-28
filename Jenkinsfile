@@ -56,7 +56,13 @@ pipeline {
                         passwordVariable: 'API_PASSWORD'
                     )
                 ]) {
-                bat 'npx playwright test'
+                bat '''
+                    if "%BROWSER%"=="all" (
+                        npx playwright test --project=chromium --project=firefox --project=webkit
+                    ) else (
+                        npx playwright test --project=%BROWSER%
+                    )
+                '''
                 }
             }
         }

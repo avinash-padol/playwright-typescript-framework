@@ -41,8 +41,8 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
-        name: 'setup',
-        testMatch: '**/auth.setup.spec.ts',
+      name: 'setup',
+      testMatch: '**/auth.setup.spec.ts',
     },
 
     {
@@ -54,12 +54,29 @@ export default defineConfig({
     },
 
     {
+      name: 'firefox',
+      testMatch: '**/unauthenticated/**/*.spec.ts',
+      use: {
+        ...devices['Desktop Firefox'],
+      },
+    },
+
+    {
+      name: 'webkit',
+      testMatch: '**/unauthenticated/**/*.spec.ts',
+      use: {
+        ...devices['Desktop Safari'],
+      },
+    },
+
+    {
       name: 'chromium-admin',
       testMatch: '**/authenticated/**/*.spec.ts',
       dependencies: ['setup'],
-      use: { ...devices['Desktop Chrome'],
+      use: {
+        ...devices['Desktop Chrome'],
         storageState: 'playwright/.auth/Admin.json',
-       },
+      },
     },
 
     // {
@@ -72,11 +89,11 @@ export default defineConfig({
     // },
 
     {
-        name: 'api',
-        testMatch: '**/api/**/*.spec.ts',
-        use: {
-            ...devices['Desktop Chrome'],
-        },
+      name: 'api',
+      testMatch: '**/api/**/*.spec.ts',
+      use: {
+        ...devices['Desktop Chrome'],
+      },
     },
 
     // {
